@@ -4,7 +4,7 @@ Update Systema
 
 ----VIRTUAL ENV-----
 
-apt install python3.8-env
+apt install python3.8-venv
 
 python3 -m venv env
 
