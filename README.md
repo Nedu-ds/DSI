@@ -4,18 +4,17 @@ Update Systema
 
 ----VIRTUAL ENV-----
 
-apt install python3.8-venv
+*execute as administrator in Windows*
 
-python3 -m venv env
-
-source env/bin/active
+$ apt install python3.8-venv
+$ python3 -m venv env
+$ source env/bin/active
 
 --- Install --------
 
-pip3 install -r requirements.txt
-
+$ pip3 install -r requirements.txt
 
 ---- EXECUTE
 
-python main.py 
+$ python main.py 
 
