@@ -1,27 +1,30 @@
-# DSI
-Update Systema
+# Cybersecurity Dashboard
+Ciber Dashboard 
 
-How to use it
+GET CODE
 ```
-git clone https://github.com/Nedu-ds/DSI.git
-cd DSI
+$ git clone https://github.com/Nedu-ds/DSI.git
+$ cd DSI
 ```
 
-
-----VIRTUAL ENV-----
-
+----Virtual Environment-----
 *execute as administrator*
+
 ```
 $ apt install python3.8-venv
 $ python3 -m venv env
 $ source env/bin/active
 ```
 
---- Install --------
+---- Install Modules -----
 
+```
 $ pip3 install -r requirements.txt
+```
 
----- EXECUTE
+---- Run Dashboard ----
 
+```
 $ python main.py 
+```
 
