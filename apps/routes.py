@@ -10,3 +10,5 @@ def home():
 @routes.route('/dashboard')
 def dashboard():
     return render_template("home/dashboard.html")
+
+#Not found
