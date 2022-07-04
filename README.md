@@ -1,6 +1,12 @@
 # DSI
 Update Systema
 
+How to use it
+```
+git clone https://github.com/Nedu-ds/DSI.git
+cd DSI
+```
+
 
 ----VIRTUAL ENV-----
 
