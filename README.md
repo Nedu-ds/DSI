@@ -4,7 +4,7 @@ Update Systema
 
 ----VIRTUAL ENV-----
 
-*execute as administrator in Windows*
+*execute as administrator*
 
 $ apt install python3.8-venv
 
