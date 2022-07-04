@@ -8,7 +8,7 @@ Update Systema
 
 $ apt install python3.8-venv
 
-$ python3 -m venv 
+$ python3 -m venv env
 
 $ source env/bin/active
 
