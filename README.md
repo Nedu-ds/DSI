@@ -7,7 +7,9 @@ Update Systema
 *execute as administrator in Windows*
 
 $ apt install python3.8-venv
-$ python3 -m venv env
+
+$ python3 -m venv 
+
 $ source env/bin/active
 
 --- Install --------
