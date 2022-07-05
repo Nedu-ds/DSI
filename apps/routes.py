@@ -15,3 +15,7 @@ def dashboard():
 @routes.app_errorhandler(404)
 def error_404(error):
     return render_template('home/notfound.html'), 404
+
+@routes.route('/usuarios')
+def usuarios():
+    return render_template("home/usuarios.html")
