@@ -14,13 +14,23 @@ div.carousel{
     justify-content: center;
 }
 
+div.carousel div.mySlides.fade {
+  width: 90%;
+  height: 100%;
+}
+
+div.carousel div.mySlides.fade img {
+  width: 100%;
+  height: 100%;
+}
+
 div.carousel-item img {
     vertical-align: middle;
     width: 70vw ;
     height: 30vh;
 }
 
-/* Slideshow container
+/* Slideshow container */
 .slideshow-container {
   max-width: 1000px;
   position: relative;
