@@ -1,6 +1,4 @@
-from urllib import response
-from urllib.request import Request
-from flask import Blueprint, redirect, render_template, request, make_response, session
+from flask import Blueprint, render_template, request
 
 routes = Blueprint('routes',__name__)
 
@@ -18,3 +16,6 @@ def dashboard():
 
 
 #Not found
+@routes.app_errorhandler(404)
+def error_404(error):
+    return render_template('home/notfound.html'), 404
