@@ -164,7 +164,8 @@ nav{
   display: block;
 }
 main section.main-content{
-  width: 88vw;
+  width: 96vw;
   height: 100%;
-  padding-left: 22vw; 
+  padding-left: 15vw; 
+  padding-top: 20px;
 }
