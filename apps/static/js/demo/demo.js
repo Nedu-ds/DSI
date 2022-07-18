@@ -182,8 +182,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 60,
-            suggestedMax: 125,
+            suggestedMin: 110,
+            suggestedMax: 90,
             padding: 20,
             fontColor: "#9a9a9a"
           }
@@ -278,8 +278,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 50,
-            suggestedMax: 125,
+            suggestedMin: 0,
+            suggestedMax: 120,
             padding: 20,
             fontColor: "#9e9e9e"
           }
@@ -327,8 +327,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 60,
-            suggestedMax: 120,
+            suggestedMin: 0,
+            suggestedMax: 40,
             padding: 20,
             fontColor: "#9e9e9e"
           }

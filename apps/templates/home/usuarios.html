@@ -5,17 +5,20 @@
 
 
 {%block body%}
+<!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
 <div class="container">
     <div class="row">
         <div class="col md-12">
             <div class="p-3">
                 <h2>Usuarios <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crear">Crear Usuario</button></h2>
-                
+                <!-- <input type="text" class="form-control" id="search" onkeyup="searchUser()" placeholder="Buscar un Usuario..." style="margin-bottom: 1.5em; margin-top: 1.5em;"> -->
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
                 {% for message in messages %}
-                <div class="alert alert-success" alert-dismissable role="alert">
+                <div class="alert alert-success alert-dismissible"  role="alert">
                     {{message}}
                     <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -23,8 +26,8 @@
                 {% endif %}
                 {% endwith %}
 
-                <table class="table table-hover">
-                    <thead class="table-dark">
+                <table class="table table-hover" id="tableUsers">
+                    <thead>
                         <tr>
                             <th>#</th>
                             <th>Usuario</th>
@@ -33,76 +36,86 @@
                             <th></th>
                         </tr>
                     </thead>
-                    {% for row in users %}
-                        <tbody>
+                    <tbody>
+                        {% for row in users %}                       
                             <tr>
                                 <td>{{row.id}}</td>
                                 <td>{{row.username}}</td>
                                 <td>{{row.perfil}}</td>
                                 <td>{{row.create_date}}</td>
                                 <td>
-                                    <a href="routes.update/{{row.id}}" class="btn btn-warning btn-xs" data-bs-toggle="modal" data-bs-target="#editar{{row.id}}">Editar</a>
+                                    <a href="routes.update/{{row.id}}" class="btn btn-warning btn-xs" data-bs-toggle="modal" data-bs-target="#editar{{row.id}}" id="edit">Editar</a>
                                     <a href="routes.delete/{{row.id}}" class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#confirm{{row.id}}">Eliminar</a>
                                 </td>
                             </tr>
-                        </tbody>
-                        <!--Modal Editar Usuario -->
-                        <div class="modal fade" id="editar{{row.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
-                            <div class="modal-dialog">
+                            <!--Modal Editar Usuario -->
+                            <div class="modal fade" id="editar{{row.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">EDITAR USUARIO</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{url_for('routes.update')}}" method="POST">
+                                                <div class="mb-3">
+                                                    <label class="col-form-label">Usuario</label>
+                                                    <input type="hidden" name="id" value="{{row.id}}">
+                                                    <input type="text" class="form-control" name="usuario" value="{{row.username}}" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="col-form-label">Perfil</label>
+                                                    <select class="form-select" aria-label=".form-select-lg example" name="perfil">
+                                                        {% if row.perfil == "Admin" %}                                                  
+                                                            <option value="Admin" selected>Admin</option>
+                                                            <option value="Config">Config</option>
+                                                            <option value="Viewer">Viewer</option>
+                                                        {% endif %}
+                                                        {% if row.perfil == "Config" %}                                                  
+                                                            <option value="Admin">Admin</option>
+                                                            <option value="Config" selected>Config</option>
+                                                            <option value="Viewer">Viewer</option>
+                                                        {% endif %}
+                                                        {% if row.perfil == "Viewer" %}                                                  
+                                                            <option value="Admin">Admin</option>
+                                                            <option value="Config">Config</option>
+                                                            <option value="Viewer" selected>Viewer</option>
+                                                        {% endif %}
+                                                    </select>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Editar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <!-- Modal Eliminar Usuario-->
+                            <div class="modal fade" id="confirm{{row.id}}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">EDITAR USUARIO</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <h5 class="modal-title" id="staticBackdropLabel">Confirmación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{url_for('routes.update')}}" method="POST">
-                                            <div class="mb-3">
-                                                <label class="col-form-label">Usuario</label>
-                                                <input type="hidden" name="id" value="{{row.id}}">
-                                                <input type="text" class="form-control" id="usuario" name="usuario" value="{{row.username}}" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="col-form-label">Perfil</label>
-                                                <select class="form-select" aria-label=".form-select-lg example" id="perfil" name="perfil">
-                                                    <option selected>{{row.perfil}}</option>
-                                                    <option value="Admin">Admin</option>
-                                                    <option value="Config">Config</option>
-                                                    <option value="Viewer">Viewer</option>
-                                                </select>
-                                            </div>
+                                        <form action="{{url_for('routes.delete')}}" method="POST">
+                                            <div><input type="hidden" name="id" value="{{row.id}}">¿Está seguro de eliminar el usuario?</div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Editar</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                <button type="submit" class="btn btn-primary">Sí</button>
                                             </div>
-                                        </form>
+                                        </form> 
                                     </div>
+                                    
+                                </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- Modal Eliminar Usuario-->
-                        <div class="modal fade" id="confirm{{row.id}}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Confirmación</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{url_for('routes.delete')}}" method="POST">
-                                        <div><input type="hidden" name="id" value="{{row.id}}">¿Está seguro de eliminar el usuario?</div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                            <button type="submit" class="btn btn-primary">Sí</button>
-                                            </div>
-                                    </form> 
-                                </div>
-                                
-                            </div>
-                            </div>
-                        </div>
-
-                    {% endfor %}
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
             <!--Modal Crear Usuario -->
@@ -125,8 +138,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="col-form-label">Perfil</label>
-                                    <select class="form-select" aria-label=".form-select-lg example" id="perfil" name="perfil">
-                                        <option selected disabled>Seleccione uno</option>
+                                    <select class="form-select" aria-label=".form-select-lg example" id="perfil" name="perfil" required>
+                                        <option selected disabled value="null">Seleccione uno</option>
                                         <option value="Admin">Admin</option>
                                         <option value="Config">Config</option>
                                         <option value="Viewer">Viewer</option>
@@ -136,7 +149,7 @@
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary">Crear</button>
                                 </div>
-
+                                
                             </form>
                         </div>       
                     </div>
@@ -145,6 +158,46 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="../../static/js/core/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="..//../static/js/usuarios.js"></script>
+<!-- <script>
+    function changeSelected (Perfil){
+    const $select = document.querySelector('#Selectperfil'+Perfil);
+    const perfiles = ['Admin','Config', 'Viewer'];
+    for (let i = 0; i < perfiles.length; i++) {
+        if (Perfil === perfiles[i]) {
+            $select.value = Perfil;
+        };
+    };
+};
+</script> -->
+<script>
+    // function searchUser() {
+    //     var input, filter, table, tr, td, i, txtValue;
+    //     input = document.getElementById("search");
+    //     filter = input.value.toUpperCase();
+    //     table = document.getElementById("tableUsers");
+    //     tr = table.getElementsByTagName("tr");
+
+    //     for (i = 0; i < tr.length; i++){
+    //         td = tr[i].getElementsByTagName("td")[1];
+    //         if (td) {
+    //             txtValue = td.textContent || td.innerText;
+    //             if(txtValue.toUpperCase().indexOf(filter) > -1) {
+    //                 tr[i].style.display = "";
+    //             } else {
+    //                 tr[i].style.display = "none";
+    //             }
+    //         }
+    //     }
+    // }
+    $(document).ready(function () {
+    $('#tableUsers').DataTable();
+  });
+</script>
 {% endblock %}
