@@ -15,14 +15,23 @@
             <div class="p-3">
                 <h2>Usuarios <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#crear">Crear Usuario</button></h2>
                 <!-- <input type="text" class="form-control" id="search" onkeyup="searchUser()" placeholder="Buscar un Usuario..." style="margin-bottom: 1.5em; margin-top: 1.5em;"> -->
-                {% with messages = get_flashed_messages() %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-success alert-dismissible"  role="alert">
-                    {{message}}
-                    <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-                {% endfor %}
+                    {% for category, message in messages %}
+                        {% if category == 'success' %}
+                        <div class="alert alert-success alert-dismissible"  role="alert">
+                            {{message}}
+                            <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+
+                        {% if category == 'error' %}
+                        <div class="alert alert-danger alert-dismissible"  role="alert">
+                            {{message}}
+                            <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
                 {% endwith %}
 
@@ -139,7 +148,7 @@
                                 <div class="mb-3">
                                     <label class="col-form-label">Perfil</label>
                                     <select class="form-select" aria-label=".form-select-lg example" id="perfil" name="perfil" required>
-                                        <option selected disabled value="null">Seleccione uno</option>
+                                        <option selected disabled value="">Seleccione uno</option>
                                         <option value="Admin">Admin</option>
                                         <option value="Config">Config</option>
                                         <option value="Viewer">Viewer</option>

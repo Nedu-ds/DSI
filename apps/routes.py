@@ -1,3 +1,4 @@
+from ast import Try
 from flask import Blueprint, redirect, render_template, request, url_for, flash, session
 from .models import User, db
 
@@ -44,15 +45,17 @@ def usuarios():
 @routes.route('/insert', methods = ['POST'])
 def insert():
     if request.method == 'POST':
-        usuario = request.form['usuario']
-        password = request.form['password']
-        perfil = request.form['perfil']
+        try:      
+            usuario = request.form['usuario']
+            password = request.form['password']
+            perfil = request.form['perfil']
 
-        new_user = User(usuario, password, perfil)
-        db.session.add(new_user)
-        db.session.commit()
-
-        flash("Usuario creado exitosamente")
+            new_user = User(usuario, password, perfil)
+            db.session.add(new_user)
+            db.session.commit()
+            flash("Usuario creado exitosamente", 'success')
+        except Exception as e:
+            flash("El nombre de usuario ya existe, por favor escriba uno diferente", 'error')
         return redirect(url_for('routes.usuarios'))
 
 #Update Users   
@@ -65,7 +68,7 @@ def update():
         users.perfil = request.form['perfil']
         
         db.session.commit()
-        flash("Usuario modificado exitosamente")
+        flash("Usuario modificado exitosamente", 'success')
         return redirect(url_for('routes.usuarios'))
 
 #Delete Users
@@ -74,7 +77,7 @@ def delete():
     user = User.query.get(request.form.get('id'))
     db.session.delete(user)
     db.session.commit()
-    flash("Usuario eliminado exitosamente")
+    flash("Usuario eliminado exitosamente", 'success')
     return redirect(url_for('routes.usuarios'))
 
 #Login
@@ -91,7 +94,7 @@ def login():
             session['perfil'] = perfil
             return redirect(url_for('routes.home'))
         else:
-            flash('Usuario o contraseña no validos') 
+            flash('Usuario o contraseña incorrectos') 
     return render_template("home/login.html")
     
 #Logout
