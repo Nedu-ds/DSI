@@ -1,8 +1,13 @@
 html,
 body {
+  background-image: url('../image/fondo_login.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
   height: 100%;
 }
-
+.h3.mb-3.fw-normal, .mt-5.mb-3{
+  color: white;
+}
 body {
   display: flex;
   align-items: center;

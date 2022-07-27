@@ -1,4 +1,4 @@
-<section class="side-bar">
+<!-- <section class="side-bar">
     <ul class="side-bar-menu">
         <li class="li-menu" id="menu"><a id="index" href="/"><i class="icon-menu"></i> Men&uacute;</a></li>                
         <li class="li-menu"  onclick="myFunction()"><a><i class="icon-key"></i> Accesos</a>     
@@ -15,4 +15,83 @@
         <li class="li-menu"><a href="/usuarios"><i class="icon-users"></i> Usuarios</a></li>                
         <li class="li-menu"><a href="/logout"><i class="icon-exit"></i> Salir</a></li>                
     </ul>
-</section>
+</section> --> 
+<div class="sidebar close" style="margin-top: 0px; margin-left: 0px; color: #11101d;">
+    <div class="logo-details">
+        <i class='bx bx-menu'></i>
+        <span class="text"></span>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <a href="/">
+                <i class='bx bx-home'></i>
+                <span class="link_name">Home</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="/">Home</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a href="#">
+                    <i class='icon-key'></i>
+                    <span class="link_name">Accesos</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name" href="#">Accesos</a></li>
+                <li><a href="#">Wifi</a></li>
+                <li><a href="#">Navegaci&oacuten</a></li>
+                <li><a href="#">VPN</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/dashboard">
+                <i class='bx bx-line-chart'></i>
+                <span class="link_name">Dashboard</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="/dashboard">Dashboard</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">
+                <i class='icon-mail'></i>
+                <span class="link_name">Antispam</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="#">Antispam</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/usuarios">
+                <i class='icon-users'></i>
+                <span class="link_name">Usuarios</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="/usuarios">Usuarios</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="profile-details">
+                <div class="profile-content">
+                    <!--<img src="image/profile.jpg" alt="profileImg">-->
+                </div>
+                <div class="name-job">
+                    <div class="profile_name">{{usuario}}</div>
+                    <div class="job">{{perfil}}</div>
+                </div>
+                <a href="/logout">
+                    <i class='bx bx-log-out'></i>
+                </a>       
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- <section class="home-section">
+    <div class="home-content">
+        <i class='bx bx-menu'></i>
+        <span class="text">Drop Down Sidebar</span>
+    </div>
+</section> -->

@@ -15,7 +15,10 @@ def home():
 #Dashboard
 @routes.route('/dashboard')
 def dashboard():  
-    return render_template("home/dashboard.html")
+    if 'username' in session:
+        username = session['username']
+        perfil = session['perfil']
+    return render_template("home/dashboard.html", usuario = username, perfil = perfil)
 
 #Not found
 @routes.app_errorhandler(404)
@@ -38,8 +41,11 @@ def after_request(response):
 #Users
 @routes.route('/usuarios')
 def usuarios():
-    all_users = User.query.all()
-    return render_template("home/usuarios.html", users = all_users)
+    if 'username' in session:
+        username = session['username']
+        perfil = session['perfil']
+        all_users = User.query.all()
+    return render_template("home/usuarios.html", users = all_users, usuario = username, perfil = perfil)
 
 #Insert Users
 @routes.route('/insert', methods = ['POST'])
@@ -84,17 +90,20 @@ def delete():
 @routes.route('/login', methods = ['GET','POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        try:
+            username = request.form['username']
+            password = request.form['password']
 
-        user = User.query.filter_by(username = username).first()
-        perfil = user.perfil
-        if user is not None and user.verify_password(password):
-            session['username'] = username
-            session['perfil'] = perfil
-            return redirect(url_for('routes.home'))
-        else:
-            flash('Usuario o contraseña incorrectos') 
+            user = User.query.filter_by(username = username).first()
+            perfil = user.perfil
+            if user is not None and user.verify_password(password):
+                session['username'] = username
+                session['perfil'] = perfil
+                return redirect(url_for('routes.home'))
+            else:
+                flash('Usuario o contraseña incorrectos') 
+        except Exception as e:
+            flash('Usuario o contraseña incorrectos')
     return render_template("home/login.html")
     
 #Logout

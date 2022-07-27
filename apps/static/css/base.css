@@ -79,17 +79,23 @@ header div.header-logo h4{
   
 }
 header .header-user{
-  width: 98vw;
+  width: 100vw;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px;
   background-color: #f8f9fa;
-  padding-left: 16.8vw;
+  padding-left: 195px;
+  padding-top: 25px;
+}
+.header {
+  padding-left: 78px;
+  padding-right: 15px;
 }
 header .header-user h4{
   font-size: 1.2rem;
+  color: black;
 }
 main{
   width: 100vw;
@@ -164,8 +170,51 @@ nav{
   display: block;
 }
 main section.main-content{
-  width: 96vw;
-  height: 100%;
-  padding-left: 15vw; 
-  padding-top: 20px;
+  position: relative;
+  height: 100vh;
+  left: 260px;
+  width: calc(100% - 260px);
+  transition: all 0.5s ease;
+}
+.sidebar.close ~ .main-content{
+  left: 78px;
+  width: calc(100% - 78px);
+}
+.main-content .home-content{
+  height: 50vh;
+  display: flex;
+  align-items: center;
+}
+.main-content .home-content .bx-menu,
+.main-content .home-content .text{
+  color: #11101d;
+  font-size: 35px;
+}
+.main-content .home-content .bx-menu{
+  margin: 0 15px;
+  cursor: pointer;
+}
+.main-content .home-content .text{
+  font-size: 26px;
+  font-weight: 600;
+}
+@media (max-width: 400px) {
+  .sidebar.close .nav-links li .sub-menu{
+    display: none;
+  }
+  .sidebar{
+    width: 78px;
+  }
+  .sidebar.close{
+    width: 0;
+  }
+  .main-content{
+    left: 78px;
+    width: calc(100% - 78px);
+    z-index: 100;
+  }
+  .sidebar.close ~ .main-content{
+    width: 100%;
+    left: 0;
+  }
 }
