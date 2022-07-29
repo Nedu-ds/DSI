@@ -111,4 +111,5 @@ def login():
 def logout():
     if 'username' in session:
         session.pop('username')
+        session.pop('perfil')
     return redirect(url_for('routes.login'))

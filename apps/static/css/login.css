@@ -28,13 +28,27 @@ body {
 }
 
 .form-signin input[type="text"] {
-  margin-bottom: -1px;
+  margin-bottom: 10px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+  height: 45px;
 }
 
 .form-signin input[type="password"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+  height: 45px;
+}
+
+.input-group-prepend span{
+  width: 50px;
+  height: 45px;
+  background-color: #007bff;
+  color: black;
+  border:0 !important;
+  }
+
+button {
+  margin-top: 20px;
 }
